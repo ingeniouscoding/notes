@@ -1,0 +1,10 @@
+autopep8==1.6.0
+flake8==4.0.1
+greenlet==1.1.2
+mccabe==0.6.1
+playwright==1.22.0
+pycodestyle==2.8.0
+pyee==8.1.0
+pyflakes==2.4.0
+toml==0.10.2
+websockets==10.1

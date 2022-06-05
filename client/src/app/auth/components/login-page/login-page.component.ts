@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthService } from '@notes/auth/services/auth.service';
+import { AuthService, LoginCredentials } from '@notes/auth/services/auth.service';
+import { UserFormService } from '@notes/auth/services/user-form.service';
 
 @Component({
   selector: 'app-login-page',
@@ -8,13 +9,26 @@ import { AuthService } from '@notes/auth/services/auth.service';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
-  constructor(private auth: AuthService) { }
+  public loginForm = this.formFactory.getLoginForm();
+
+  constructor(
+    private auth: AuthService,
+    private formFactory: UserFormService
+  ) { }
 
   ngOnInit(): void {
-    this.auth.getToken()
+    this.auth.getCsrfCookie();
   }
 
-  onCLick() {
-    this.auth.register();
+  onLogin() {
+    const credentials: LoginCredentials = {
+      email: this.loginForm.getRawValue().email ?? '',
+      password: this.loginForm.getRawValue().password ?? '',
+    };
+    this.auth.login(credentials);
+  }
+
+  onGetUser() {
+    this.auth.getUser();
   }
 }

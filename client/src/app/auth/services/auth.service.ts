@@ -1,6 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { environment } from 'src/environments/environment';
+
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export interface RegisterCredentials extends LoginCredentials {
+  passwordConfirm: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -10,20 +20,23 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login() {
-    const loginUrl = this.url + 'login';
-    this.http.post(loginUrl, {})
+  login(credentials: LoginCredentials) {
+    this.http.post(this.url + 'login', credentials)
       .subscribe();
   }
 
-  register() {
-    const registerUrl = this.url + 'register';
-    this.http.post(registerUrl, {})
+  register(credentials: RegisterCredentials) {
+    this.http.post(this.url + 'register', credentials)
       .subscribe();
   }
 
-  getToken() {
+  getCsrfCookie() {
     this.http.get(this.url + 'sanctum/csrf-cookie')
       .subscribe();
+  }
+
+  getUser() {
+    this.http.get(this.url + 'api/user')
+      .subscribe(console.log);
   }
 }

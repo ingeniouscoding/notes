@@ -1,2 +1,11 @@
-<p>login-page works!</p>
-<button (click)="onCLick()">login</button>
+<form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+  <p>
+    <label>email</label>
+    <input type="text" formControlName="email">
+  </p>
+  <p>
+    <label>password</label>
+    <input type="text" formControlName="password">
+  </p>
+  <button>login</button>
+</form>

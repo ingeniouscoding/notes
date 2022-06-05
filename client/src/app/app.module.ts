@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppRoutingModule } from '@notes/app-routing.module';
 import { AppComponent } from '@notes/core/components/app/app.component';
 import { CoreModule } from '@notes/core/core.module';
 import { AuthModule } from '@notes/auth/auth.module';
 import { HttpRequestInterceptor } from '@notes/core/interceptors/http-request.interceptor';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [],
@@ -16,6 +20,11 @@ import { HttpRequestInterceptor } from '@notes/core/interceptors/http-request.in
     CoreModule,
     AuthModule,
     AppRoutingModule,
+    StoreModule.forRoot({}, {}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument(
+      { maxAge: 25, logOnly: environment.production }
+    ),
   ],
   providers: [
     {

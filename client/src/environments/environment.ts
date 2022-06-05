@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  url: 'http://notes.local/',
+  url: '//notes.local/',
+  api: '//notes.local/api/',
 };
 
 /*

@@ -21,4 +21,9 @@ export class AuthService {
     this.http.post(registerUrl, {})
       .subscribe();
   }
+
+  getToken() {
+    this.http.get(this.url + 'sanctum/csrf-cookie')
+      .subscribe();
+  }
 }

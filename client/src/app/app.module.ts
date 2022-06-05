@@ -12,10 +12,10 @@ import { HttpRequestInterceptor } from '@notes/core/interceptors/http-request.in
   declarations: [],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
     CoreModule,
     AuthModule,
+    AppRoutingModule,
   ],
   providers: [
     {

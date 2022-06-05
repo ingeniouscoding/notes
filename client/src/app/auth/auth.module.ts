@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
+import { AuthRoutingModule } from './auth-routing.module';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { RegisterPageComponent } from './components/register-page/register-page.
   ],
   imports: [
     CommonModule,
+    AuthRoutingModule,
     ReactiveFormsModule,
   ],
 })

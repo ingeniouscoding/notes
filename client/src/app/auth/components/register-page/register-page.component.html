@@ -1,1 +1,19 @@
-<p>register-page works!</p>
+<form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+  <p>
+    <label>name</label>
+    <input type="text" formControlName="name">
+  </p>
+  <p>
+    <label>email</label>
+    <input type="text" formControlName="email">
+  </p>
+  <p>
+    <label>password</label>
+    <input type="text" formControlName="password">
+  </p>
+  <p>
+    <label>password confirm</label>
+    <input type="text" formControlName="passwordConfirm">
+  </p>
+  <button>register</button>
+</form>

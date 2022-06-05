@@ -7,6 +7,7 @@ export interface LoginFormControls {
 }
 
 export interface RegisterFormControls extends LoginFormControls {
+  name: FormControl<string | null>;
   passwordConfirm: FormControl<string | null>;
 }
 
@@ -23,10 +24,17 @@ export class UserFormService {
 
   getRegisterForm(): FormGroup<RegisterFormControls> {
     return new FormGroup({
+      name: this.getEmailControl(),
       email: this.getEmailControl(),
       password: this.getPasswordControl(),
       passwordConfirm: this.getPasswordConfirmControl(),
     });
+  }
+
+  private getNameControl(): FormControl<string | null> {
+    return new FormControl('', [
+      Validators.required,
+    ]);
   }
 
   private getEmailControl(): FormControl<string | null> {

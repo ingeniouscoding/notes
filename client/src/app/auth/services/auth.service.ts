@@ -9,7 +9,8 @@ export interface LoginCredentials {
 }
 
 export interface RegisterCredentials extends LoginCredentials {
-  passwordConfirm: string;
+  name: string;
+  password_confirmation: string;
 }
 
 @Injectable({

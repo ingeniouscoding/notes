@@ -21,7 +21,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return response()->noContent();
+        return [
+            'name'  => Auth::user()->name,
+            'email' => Auth::user()->email,
+        ];
     }
 
     /**

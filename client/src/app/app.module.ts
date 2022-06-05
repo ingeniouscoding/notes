@@ -11,20 +11,21 @@ import { CoreModule } from '@notes/core/core.module';
 import { AuthModule } from '@notes/auth/auth.module';
 import { HttpRequestInterceptor } from '@notes/core/interceptors/http-request.interceptor';
 import { environment } from '../environments/environment';
+import { reducers } from './app.state';
 
 @NgModule({
   declarations: [],
   imports: [
     BrowserModule,
     HttpClientModule,
-    CoreModule,
-    AuthModule,
-    AppRoutingModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument(
       { maxAge: 25, logOnly: environment.production }
     ),
+    CoreModule,
+    AuthModule,
+    AppRoutingModule,
   ],
   providers: [
     {

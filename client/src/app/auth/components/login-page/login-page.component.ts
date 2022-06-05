@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 import { AuthService, LoginCredentials } from '@notes/auth/services/auth.service';
 import { UserFormService } from '@notes/auth/services/user-form.service';
+import { LoginPageActions } from '@notes/auth/actions';
 
 @Component({
   selector: 'app-login-page',
@@ -13,7 +15,8 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private formFactory: UserFormService
+    private formFactory: UserFormService,
+    private store: Store
   ) { }
 
   ngOnInit(): void {
@@ -26,6 +29,7 @@ export class LoginPageComponent implements OnInit {
       password: this.loginForm.getRawValue().password ?? '',
     };
     this.auth.login(credentials);
+    this.store.dispatch(LoginPageActions.login(credentials));
   }
 
   onGetUser() {

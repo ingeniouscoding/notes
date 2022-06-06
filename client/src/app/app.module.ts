@@ -23,9 +23,9 @@ import { reducers } from './app.state';
     StoreDevtoolsModule.instrument(
       { maxAge: 25, logOnly: environment.production }
     ),
-    CoreModule,
-    AuthModule,
     AppRoutingModule,
+    AuthModule,
+    CoreModule,
   ],
   providers: [
     {

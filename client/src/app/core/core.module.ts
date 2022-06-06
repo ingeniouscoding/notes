@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './components/app/app.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { HeaderComponent } from './components/header/header.component';
+import { CoreRoutingModule } from './core-routing.module';
 
 
 
@@ -13,10 +15,12 @@ import { HomePageComponent } from './components/home-page/home-page.component';
     AppComponent,
     NotFoundPageComponent,
     HomePageComponent,
+    HeaderComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
+    CoreRoutingModule,
   ],
 })
 export class CoreModule { }

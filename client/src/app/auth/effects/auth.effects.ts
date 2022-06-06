@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, exhaustMap, map, of } from "rxjs";
+import { catchError, exhaustMap, map, of, tap } from "rxjs";
 
-import { AuthApiActions, LoginPageActions } from "../actions";
-import { AuthService, LoginCredentials } from "../services/auth.service";
+import { AuthActions, AuthApiActions, LoginPageActions } from "../actions";
+import { AuthService } from "../services/auth.service";
 
 @Injectable()
 export class AuthEffects {
@@ -21,8 +22,17 @@ export class AuthEffects {
     )
   );
 
+  loginSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthApiActions.loginSuccess),
+      tap(() => this.router.navigate(['/']))
+    ),
+    { dispatch: false }
+  );
+
   constructor(
     private actions$: Actions,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 }

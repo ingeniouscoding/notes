@@ -1,10 +1,13 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { LocalStorageService } from "@notes/core/services/local-storage.service";
 import { catchError, exhaustMap, map, of, tap } from "rxjs";
 
-import { AuthActions, AuthApiActions, LoginPageActions } from "../actions";
+import { AuthApiActions, LoginPageActions } from "../actions";
 import { AuthService } from "../services/auth.service";
+
+export const isAuthenticatedKey = 'is_authenticated';
 
 @Injectable()
 export class AuthEffects {
@@ -25,7 +28,10 @@ export class AuthEffects {
   loginSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthApiActions.loginSuccess),
-      tap(() => this.router.navigate(['/']))
+      tap(() => {
+        this.storage.setItem(isAuthenticatedKey, 'true');
+        this.router.navigate(['/']);
+      })
     ),
     { dispatch: false }
   );
@@ -33,6 +39,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
+    private storage: LocalStorageService,
     private router: Router
   ) { }
 }

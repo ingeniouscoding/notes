@@ -9,6 +9,7 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { RegisterPageComponent } from './components/register-page/register-page.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthEffects } from './effects/auth.effects';
+import { UserEffects } from './effects/user.effects';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { AuthEffects } from './effects/auth.effects';
     ReactiveFormsModule,
     AuthRoutingModule,
     StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducers),
-    EffectsModule.forFeature([AuthEffects]),
+    EffectsModule.forFeature([AuthEffects, UserEffects]),
   ],
 })
 export class AuthModule { }

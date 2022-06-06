@@ -35,6 +35,11 @@ export const selectUser = createSelector(
   (state) => state.user
 );
 
+export const selectIsAuthenticated = createSelector(
+  selectAuthStatusState,
+  (state) => state.isAuthenticated
+);
+
 const selectLoginPageState = createSelector(
   selectAuthStateFeature,
   (state) => state.loginPage

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { User } from '../models/user';
+import { User } from '../models/user.model';
 
 export interface LoginCredentials {
   email: string;
@@ -37,8 +37,7 @@ export class AuthService {
       .subscribe();
   }
 
-  getUser() {
-    this.http.get(this.url + 'api/user')
-      .subscribe(console.log);
+  getUser(): Observable<User> {
+    return this.http.get<User>(this.url + 'api/user');
   }
 }

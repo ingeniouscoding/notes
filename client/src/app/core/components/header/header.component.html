@@ -1,0 +1,13 @@
+<header class="header">
+  <div *ngIf="user$ | async as user else noUser">
+    <h1>{{ user.name }}</h1>
+    <button (click)="onLogout()">Logout</button>
+  </div>
+</header>
+
+<ng-template #noUser>
+  <h1>
+    no user
+  </h1>
+</ng-template>
+<p>{{ isAuth$ | async }}</p>

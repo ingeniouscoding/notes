@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { LocalStorageService } from "@notes/core/services/local-storage.service";
 import { catchError, exhaustMap, map, of, tap } from "rxjs";
 
-import { AuthApiActions, LoginPageActions } from "../actions";
+import { AuthApiActions, LoginPageActions, RegisterPageActions } from "../actions";
 import { AuthService } from "../services/auth.service";
 
 export const isAuthenticatedKey = 'is_authenticated';
@@ -28,6 +28,31 @@ export class AuthEffects {
   loginSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthApiActions.loginSuccess),
+      tap(() => {
+        this.storage.setItem(isAuthenticatedKey, 'true');
+        this.router.navigate(['/']);
+      })
+    ),
+    { dispatch: false }
+  );
+
+  register$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(RegisterPageActions.register),
+      map((action) => action.credentials),
+      exhaustMap((credentials) =>
+        this.authService.register(credentials)
+          .pipe(
+            map((user) => AuthApiActions.registerSuccess({ user })),
+            catchError((error) => of(AuthApiActions.registerFailure({ error })))
+          )
+      )
+    )
+  );
+
+  registerSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthApiActions.registerSuccess),
       tap(() => {
         this.storage.setItem(isAuthenticatedKey, 'true');
         this.router.navigate(['/']);

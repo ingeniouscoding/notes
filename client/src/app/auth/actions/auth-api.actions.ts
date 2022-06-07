@@ -12,11 +12,13 @@ export const loginFailure = createAction(
   props<{ error: any; }>()
 );
 
-export const getUserSuccess = createAction(
-  '[Auth/API] Get User Success',
+export const registerSuccess = createAction(
+  '[Auth/API] Register Success',
   props<{ user: User; }>()
 );
 
-export const getUserFailure = createAction('[Auth/API] Get User Failure');
+export const registerFailure = createAction(
+  '[Auth/API] Register Failure',
+  props<{ error: any; }>()
+);
 
-export const loginRedirect = createAction('[Auth/API] Login Redirect');

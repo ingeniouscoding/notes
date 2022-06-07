@@ -2,12 +2,14 @@ import { Action, combineReducers, createFeatureSelector, createSelector } from '
 
 import * as fromRoot from '@notes/app.state';
 import * as fromLoginPage from './login-page.reducer';
+import * as fromRegisterPage from './register-page.reducer';
 import * as fromAuth from './auth.reducer';
 
 export const authFeatureKey = 'auth';
 
 export interface AuthState {
   [fromLoginPage.loginPageFeatureKey]: fromLoginPage.State;
+  [fromRegisterPage.registerPageFeatureKey]: fromRegisterPage.State;
   [fromAuth.statusFeatureKey]: fromAuth.State;
 }
 
@@ -18,6 +20,7 @@ export interface State extends fromRoot.State {
 export function reducers(state: AuthState | undefined, action: Action) {
   return combineReducers({
     [fromLoginPage.loginPageFeatureKey]: fromLoginPage.reducer,
+    [fromRegisterPage.registerPageFeatureKey]: fromRegisterPage.reducer,
     [fromAuth.statusFeatureKey]: fromAuth.reducer,
   })(state, action);
 }
@@ -52,4 +55,9 @@ export const selectLoginPageError = createSelector(
 export const selectLoginPagePending = createSelector(
   selectLoginPageState,
   (state) => state.pending
+);
+
+const selectRegisterPageState = createSelector(
+  selectAuthStateFeature,
+  (state) => state.registerPage
 );

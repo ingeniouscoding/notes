@@ -27,9 +27,8 @@ export class AuthService {
     return this.http.post<User>(this.url + 'login', credentials);
   }
 
-  register(credentials: RegisterCredentials) {
-    this.http.post(this.url + 'register', credentials)
-      .subscribe();
+  register(credentials: RegisterCredentials): Observable<User> {
+    return this.http.post<User>(this.url + 'register', credentials);
   }
 
   getCsrfCookie() {

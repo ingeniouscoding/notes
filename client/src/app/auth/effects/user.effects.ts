@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, EMPTY, exhaustMap, map, of, switchMap } from "rxjs";
+import { catchError, exhaustMap, map, of } from "rxjs";
 
 import { LocalStorageService } from "@notes/core/services/local-storage.service";
-import { AuthActions, UserApiActions } from "../actions";
+import { AuthActions, AuthApiActions, UserApiActions } from "../actions";
 import { AuthService } from "../services/auth.service";
 import { isAuthenticatedKey } from "./auth.effects";
 
@@ -16,7 +16,12 @@ export class UserEffects {
         this.authService.getUser()
           .pipe(
             map((user) => UserApiActions.getUserSuccess({ user })),
-            catchError(() => EMPTY)
+            catchError((error) => {
+              if (error.status === 401) {
+                return of(AuthApiActions.logoutSuccess());
+              }
+              return of(UserApiActions.getUserFailure({ error }));
+            })
           )
       )
     )
@@ -25,9 +30,9 @@ export class UserEffects {
   getIsAuthenticated$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.getIsAuth),
-      switchMap(() => {
+      map(() => {
         const isAuthenticated = !!this.storage.getItem(isAuthenticatedKey);
-        return of(AuthActions.setIsAuth({ isAuthenticated }));
+        return AuthActions.setIsAuth({ isAuthenticated });
       })
     )
   );

@@ -7,6 +7,9 @@ export const getUserSuccess = createAction(
   props<{ user: User; }>()
 );
 
-export const getUserFailure = createAction('[Auth/API] Get User Failure');
+export const getUserFailure = createAction(
+  '[Auth/API] Get User Failure',
+  props<{ error: any; }>()
+);
 
 export const loginRedirect = createAction('[Auth/API] Login Redirect');

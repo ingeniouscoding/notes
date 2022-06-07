@@ -9,7 +9,7 @@ export interface IStorage {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LocalStorageService implements IStorage {
   private readonly storage: IStorage;

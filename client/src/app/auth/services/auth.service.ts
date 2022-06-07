@@ -31,6 +31,10 @@ export class AuthService {
     return this.http.post<User>(this.url + 'register', credentials);
   }
 
+  logout(): Observable<any> {
+    return this.http.post<any>(this.url + 'logout', {});
+  }
+
   getCsrfCookie() {
     this.http.get(this.url + 'sanctum/csrf-cookie')
       .subscribe();

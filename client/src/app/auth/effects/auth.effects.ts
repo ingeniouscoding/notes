@@ -4,7 +4,12 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { LocalStorageService } from "@notes/core/services/local-storage.service";
 import { catchError, exhaustMap, map, of, tap } from "rxjs";
 
-import { AuthApiActions, LoginPageActions, RegisterPageActions } from "../actions";
+import {
+  AuthActions,
+  AuthApiActions,
+  LoginPageActions,
+  RegisterPageActions
+} from "../actions";
 import { AuthService } from "../services/auth.service";
 
 export const isAuthenticatedKey = 'is_authenticated';
@@ -19,7 +24,9 @@ export class AuthEffects {
         this.authService.login(credentials)
           .pipe(
             map((user) => AuthApiActions.loginSuccess({ user })),
-            catchError((error) => of(AuthApiActions.loginFailure({ error })))
+            catchError((error) =>
+              of(AuthApiActions.loginFailure({ error: error.error }))
+            )
           )
       )
     )
@@ -29,8 +36,8 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthApiActions.loginSuccess),
       tap(() => {
-        this.storage.setItem(isAuthenticatedKey, 'true');
         this.router.navigate(['/']);
+        this.storage.setItem(isAuthenticatedKey, 'true');
       })
     ),
     { dispatch: false }
@@ -44,7 +51,9 @@ export class AuthEffects {
         this.authService.register(credentials)
           .pipe(
             map((user) => AuthApiActions.registerSuccess({ user })),
-            catchError((error) => of(AuthApiActions.registerFailure({ error })))
+            catchError((error) =>
+              of(AuthApiActions.registerFailure({ error: error.error }))
+            )
           )
       )
     )
@@ -54,8 +63,34 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthApiActions.registerSuccess),
       tap(() => {
-        this.storage.setItem(isAuthenticatedKey, 'true');
         this.router.navigate(['/']);
+        this.storage.setItem(isAuthenticatedKey, 'true');
+      })
+    ),
+    { dispatch: false }
+  );
+
+  logout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.logout),
+      exhaustMap(() =>
+        this.authService.logout()
+          .pipe(
+            map(() => AuthApiActions.logoutSuccess()),
+            catchError((error) =>
+              of(AuthApiActions.logoutFailure({ error }))
+            )
+          )
+      )
+    )
+  );
+
+  logoutSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthApiActions.logoutSuccess),
+      tap(() => {
+        this.router.navigate(['/']);
+        this.storage.removeItem(isAuthenticatedKey);
       })
     ),
     { dispatch: false }

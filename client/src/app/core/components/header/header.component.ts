@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { tap } from 'rxjs';
+import { combineLatest, map } from 'rxjs';
 
 import { AuthActions } from '@notes/auth/actions';
 import * as fromAuth from '@notes/auth/reducers';
@@ -11,15 +11,17 @@ import * as fromAuth from '@notes/auth/reducers';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  user$ = this.store.select(fromAuth.selectUser);
+  private user$ = this.store.select(fromAuth.selectUser);
+  private isAuth$ = this.store.select(fromAuth.selectIsAuthenticated);
 
-  isAuth$ = this.store.select(fromAuth.selectIsAuthenticated)
+  public vm$ = combineLatest([this.isAuth$, this.user$])
     .pipe(
-      tap((isAuth) => {
-        if (isAuth) {
+      map(([isAuth, user]) => {
+        if (isAuth && !user) {
           this.store.dispatch(AuthActions.getUser());
         }
-      })
+        return { isAuth, user };
+      }),
     );
 
   constructor(private store: Store) { }

@@ -1,13 +1,23 @@
-<header class="header">
-  <div *ngIf="user$ | async as user else noUser">
-    <h1>{{ user.name }}</h1>
-    <button (click)="onLogout()">Logout</button>
-  </div>
+<header class="header" *ngIf="vm$ | async as vm">
+  <ng-container *ngIf="vm.isAuth else guest">
+    <div>
+      <button (click)="onLogout()">Logout</button>
+      <ul>
+        <li><a [routerLink]="['/']">home</a></li>
+      </ul>
+    </div>
+    <div *ngIf="vm.user">
+      <h1>{{ vm.user.name }}</h1>
+    </div>
+  </ng-container>
 </header>
 
-<ng-template #noUser>
+<ng-template #guest>
+  <ul>
+    <li><a [routerLink]="['/login']">login</a></li>
+    <li><a [routerLink]="['/register']">register</a></li>
+  </ul>
   <h1>
     no user
   </h1>
 </ng-template>
-<p>{{ isAuth$ | async }}</p>

@@ -19,4 +19,4 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
         'name'  => $request->user()->name,
         'email' => $request->user()->email,
     ];
-});
+})->name('get-user');

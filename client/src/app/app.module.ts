@@ -4,6 +4,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppRoutingModule } from '@notes/app-routing.module';
 import { AppComponent } from '@notes/core/components/app/app.component';
@@ -33,6 +34,7 @@ import { reducers } from './app.state';
       useClass: HttpRequestInterceptor,
       multi: true,
     },
+    CookieService,
   ],
   bootstrap: [AppComponent],
 })

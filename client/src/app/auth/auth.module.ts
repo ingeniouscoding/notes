@@ -10,6 +10,7 @@ import { RegisterPageComponent } from './components/register-page/register-page.
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthEffects } from './effects/auth.effects';
 import { UserEffects } from './effects/user.effects';
+import { GuestOnlyGuard } from './guards/guest-only.guard';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,9 @@ import { UserEffects } from './effects/user.effects';
     AuthRoutingModule,
     StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducers),
     EffectsModule.forFeature([AuthEffects, UserEffects]),
+  ],
+  providers: [
+    GuestOnlyGuard,
   ],
 })
 export class AuthModule { }

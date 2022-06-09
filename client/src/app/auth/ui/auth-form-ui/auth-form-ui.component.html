@@ -7,6 +7,7 @@
     *ngIf="parentGroup.get('email') as ctrl">
     <mat-label>Email</mat-label>
     <input type="email" placeholder="Enter your email address" matInput formControlName="email">
+    <mat-spinner matSuffix [diameter]="16" *ngIf="parentGroup.pending"></mat-spinner>
 
     <mat-error *ngIf="ctrl.hasError('required')">
       Email is <strong>required</strong>
@@ -17,6 +18,9 @@
     <mat-error *ngIf="ctrl.hasError('maxlength')">
       Max length is {{ ctrl.errors?.['maxlength']?.['requiredLength'] }},
       actual {{ ctrl.errors?.['maxlength']?.['actualLength'] }}
+    </mat-error>
+    <mat-error *ngIf="ctrl.hasError('emailExists')">
+      This email already taken
     </mat-error>
 
   </mat-form-field>

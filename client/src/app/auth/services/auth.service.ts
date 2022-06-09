@@ -15,11 +15,17 @@ export interface RegisterCredentials extends LoginCredentials {
   password_confirmation: string;
 }
 
+export interface CheckEmailResponse {
+  error?: string;
+  isUnique?: boolean;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private readonly url = environment.url;
+  private readonly api = environment.api;
 
   constructor(private http: HttpClient) { }
 
@@ -41,6 +47,10 @@ export class AuthService {
   }
 
   getUser(): Observable<User> {
-    return this.http.get<User>(this.url + 'api/user');
+    return this.http.get<User>(this.api + 'user');
+  }
+
+  checkEmailAlreadyExist(email: string): Observable<CheckEmailResponse> {
+    return this.http.get<CheckEmailResponse>(this.api + 'exists?email=' + email);
   }
 }

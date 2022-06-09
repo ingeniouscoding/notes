@@ -34,7 +34,7 @@
         <mat-error *ngIf="ctrl.hasError('required')">
           Confirm Password is <strong>required</strong>
         </mat-error>
-        <mat-hint *ngIf="ctrl.touched && ctrl.dirty && registerForm.hasError('match_values')">
+        <mat-hint *ngIf="ctrl.touched && registerForm.hasError('match_values')">
           Passwords should match
         </mat-hint>
 

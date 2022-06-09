@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { createCompareValidator, createEmailIsUniqueValidator } from '../validators/auth-validators';
+import { AuthService } from './auth.service';
 
 export interface LoginFormControls {
   email: FormControl<string | null>;
@@ -11,23 +14,15 @@ export interface RegisterFormControls extends LoginFormControls {
   confirmPassword: FormControl<string | null>;
 }
 
-function createCompareValidator(
-  controlOne: AbstractControl<string | null>,
-  controlTwo: AbstractControl<string | null>): () => ValidationErrors | null {
-  return (): ValidationErrors | null => {
-    if (controlOne.value !== controlTwo.value)
-      return { match_values: 'Values does not match' };
-    return null;
-  };
-};
-
 @Injectable({
   providedIn: 'root',
 })
 export class UserFormService {
+  constructor(private authService: AuthService) { }
+
   getLoginForm(): FormGroup<LoginFormControls> {
     return new FormGroup({
-      email: this.getEmailControl(),
+      email: this.getLoginEmailControl(),
       password: this.getLoginPasswordControl(),
     });
   }
@@ -35,7 +30,7 @@ export class UserFormService {
   getRegisterForm(): FormGroup<RegisterFormControls> {
     const fg = new FormGroup({
       name: this.getNameControl(),
-      email: this.getEmailControl(),
+      email: this.getRegisterEmailControl(),
       password: this.getRegisterPasswordControl(),
       confirmPassword: this.getConfirmPasswordControl(),
     });
@@ -54,11 +49,21 @@ export class UserFormService {
     ]);
   }
 
-  private getEmailControl(): FormControl<string | null> {
+  private getLoginEmailControl(): FormControl<string | null> {
     return new FormControl('', [
       Validators.required,
       Validators.email,
       Validators.maxLength(255),
+    ]);
+  }
+
+  private getRegisterEmailControl(): FormControl<string | null> {
+    return new FormControl('', [
+      Validators.required,
+      Validators.email,
+      Validators.maxLength(255),
+    ], [
+      createEmailIsUniqueValidator(this.authService),
     ]);
   }
 

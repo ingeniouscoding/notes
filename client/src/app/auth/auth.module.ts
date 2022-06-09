@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import * as fromAuth from '@notes/auth/reducers';
 import { LoginPageComponent } from './components/login-page/login-page.component';
@@ -34,6 +35,7 @@ import { AuthFormUiComponent } from './ui/auth-form-ui/auth-form-ui.component';
     MatFormFieldModule,
     MatButtonModule,
     MatIconModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     GuestOnlyGuard,

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckEmailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,5 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
         'email' => $request->user()->email,
     ];
 })->name('get-user');
+
+Route::get('/exists', [CheckEmailController::class, 'show'])->name('check-email');

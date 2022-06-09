@@ -28,11 +28,6 @@ export class LoginPageComponent implements OnInit {
       email: this.loginForm.getRawValue().email ?? '',
       password: this.loginForm.getRawValue().password ?? '',
     };
-    this.auth.login(credentials);
     this.store.dispatch(LoginPageActions.login({ credentials }));
-  }
-
-  onGetUser() {
-    this.auth.getUser();
   }
 }

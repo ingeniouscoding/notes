@@ -1,11 +1,7 @@
-<form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-  <p>
-    <label>email</label>
-    <input type="text" formControlName="email">
-  </p>
-  <p>
-    <label>password</label>
-    <input type="text" formControlName="password">
-  </p>
-  <button>login</button>
+<form class="auth-form" [formGroup]="loginForm">
+  <app-auth-form-ui submitButton="Login"
+    [parentGroup]="loginForm"
+    [errorMessage]="[]"
+    (submit)="onLogin()">
+  </app-auth-form-ui>
 </form>

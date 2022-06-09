@@ -4,6 +4,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+
 import * as fromAuth from '@notes/auth/reducers';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
@@ -11,11 +15,13 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { AuthEffects } from './effects/auth.effects';
 import { UserEffects } from './effects/user.effects';
 import { GuestOnlyGuard } from './guards/guest-only.guard';
+import { AuthFormUiComponent } from './ui/auth-form-ui/auth-form-ui.component';
 
 @NgModule({
   declarations: [
     LoginPageComponent,
     RegisterPageComponent,
+    AuthFormUiComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +29,9 @@ import { GuestOnlyGuard } from './guards/guest-only.guard';
     AuthRoutingModule,
     StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducers),
     EffectsModule.forFeature([AuthEffects, UserEffects]),
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
   ],
   providers: [
     GuestOnlyGuard,

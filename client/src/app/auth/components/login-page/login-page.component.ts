@@ -13,6 +13,14 @@ import { LoginPageActions } from '@notes/auth/actions';
 export class LoginPageComponent implements OnInit {
   public loginForm = this.formFactory.getLoginForm();
 
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
+
   constructor(
     private auth: AuthService,
     private formFactory: UserFormService,
@@ -25,9 +33,10 @@ export class LoginPageComponent implements OnInit {
 
   onLogin() {
     const credentials: LoginCredentials = {
-      email: this.loginForm.getRawValue().email ?? '',
-      password: this.loginForm.getRawValue().password ?? '',
+      email: this.email?.value ?? '',
+      password: this.password?.value ?? '',
     };
+
     this.store.dispatch(LoginPageActions.login({ credentials }));
   }
 }

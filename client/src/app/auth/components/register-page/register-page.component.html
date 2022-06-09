@@ -1,19 +1,39 @@
-<form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-  <p>
-    <label>name</label>
-    <input type="text" formControlName="name">
-  </p>
-  <p>
-    <label>email</label>
-    <input type="text" formControlName="email">
-  </p>
-  <p>
-    <label>password</label>
-    <input type="text" formControlName="password">
-  </p>
-  <p>
-    <label>password confirm</label>
-    <input type="text" formControlName="passwordConfirm">
-  </p>
-  <button>register</button>
+<form class="auth-form" [formGroup]="registerForm">
+  <app-auth-form-ui submitButton="Register"
+    [parentGroup]="registerForm"
+    [errorMessage]="[]"
+    (submit)="onRegister()">
+
+    <ng-container slot="start">
+      <mat-form-field class="auth-form__input"
+        appearance="fill" hideRequiredMarker="true"
+        *ngIf="name as ctrl">
+        <mat-label>Name</mat-label>
+        <input type="text" matInput formControlName="name">
+        <mat-error *ngIf="ctrl.hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="ctrl.hasError('maxlength')">
+          Max length is {{ ctrl.errors?.['maxlength']?.['requiredLength'] }},
+          actual {{ ctrl.errors?.['maxlength']?.['actualLength'] }}
+        </mat-error>
+      </mat-form-field>
+    </ng-container>
+
+    <ng-container slot="end">
+      <mat-form-field class="auth-form__input"
+        appearance="fill" hideRequiredMarker="true"
+        *ngIf="confirmPassword as ctrl">
+        <mat-label>Confirm Password</mat-label>
+        <input type="password" matInput formControlName="confirmPassword">
+        <mat-error *ngIf="ctrl.hasError('required')">
+          Confirm Password is <strong>required</strong>
+        </mat-error>
+        <mat-hint *ngIf="ctrl.touched && ctrl.dirty && registerForm.hasError('match_values')">
+          Passwords should match
+        </mat-hint>
+      </mat-form-field>
+    </ng-container>
+
+  </app-auth-form-ui>
 </form>

@@ -13,6 +13,22 @@ import { UserFormService } from '@notes/auth/services/user-form.service';
 export class RegisterPageComponent implements OnInit {
   public registerForm = this.formFactory.getRegisterForm();
 
+  get name() {
+    return this.registerForm.get('name');
+  }
+
+  get email() {
+    return this.registerForm.get('email');
+  }
+
+  get password() {
+    return this.registerForm.get('password');
+  }
+
+  get confirmPassword() {
+    return this.registerForm.get('confirmPassword');
+  }
+
   constructor(
     private store: Store,
     private auth: AuthService,
@@ -25,12 +41,12 @@ export class RegisterPageComponent implements OnInit {
 
   onRegister() {
     const credentials: RegisterCredentials = {
-      name: this.registerForm.getRawValue().name ?? '',
-      email: this.registerForm.getRawValue().email ?? '',
-      password: this.registerForm.getRawValue().password ?? '',
-      password_confirmation:
-        this.registerForm.getRawValue().passwordConfirm ?? '',
+      name: this.name?.value ?? '',
+      email: this.email?.value ?? '',
+      password: this.password?.value ?? '',
+      password_confirmation: this.confirmPassword?.value ?? '',
     };
+
     this.store.dispatch(RegisterPageActions.register({ credentials }));
   }
 }

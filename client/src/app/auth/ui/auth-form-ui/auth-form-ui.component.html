@@ -1,0 +1,49 @@
+<ng-container [formGroup]="parentGroup" (ngSubmit)="onSubmit()">
+
+  <ng-content select="[slot=start]"></ng-content>
+
+  <mat-form-field class="auth-form__input"
+    appearance="fill" hideRequiredMarker="true"
+    *ngIf="parentGroup.get('email') as ctrl">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput formControlName="email">
+    <mat-error *ngIf="ctrl.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="ctrl.hasError('email')">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="ctrl.hasError('maxlength')">
+      Max length is {{ ctrl.errors?.['maxlength']?.['requiredLength'] }},
+      actual {{ ctrl.errors?.['maxlength']?.['actualLength'] }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="auth-form__input"
+    appearance="fill" hideRequiredMarker="true"
+    *ngIf="parentGroup.get('password') as ctrl">
+    <mat-label>Password</mat-label>
+    <input type="password" placeholder="Minimum 6 characters"
+      matInput formControlName="password">
+    <mat-error *ngIf="ctrl?.hasError('required')">
+      Password is <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="ctrl.hasError('minlength')">
+      Min length is {{ ctrl.errors?.['minlength']?.['requiredLength'] }},
+      actual {{ ctrl.errors?.['minlength']?.['actualLength'] }}
+    </mat-error>
+    <mat-error *ngIf="ctrl.hasError('maxlength')">
+      Max length is {{ ctrl.errors?.['maxlength']?.['requiredLength'] }},
+      actual {{ ctrl.errors?.['maxlength']?.['actualLength'] }}
+    </mat-error>
+  </mat-form-field>
+
+  <ng-content select="[slot=end]"></ng-content>
+
+  <div class="auth-form__actions">
+    <button mat-raised-button color="accent" [disabled]="!parentGroup.valid" (click)="onSubmit()">
+      {{ submitButton }}
+    </button>
+  </div>
+
+</ng-container>

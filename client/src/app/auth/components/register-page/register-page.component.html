@@ -1,7 +1,7 @@
 <form class="auth-form" [formGroup]="registerForm">
   <app-auth-form-ui submitButton="Register"
     [parentGroup]="registerForm"
-    [errorMessage]="[]"
+    [errors]="(errors$ | async) ?? []"
     (submit)="onRegister()">
 
     <ng-container slot="start">
@@ -9,7 +9,8 @@
         appearance="fill" hideRequiredMarker="true"
         *ngIf="name as ctrl">
         <mat-label>Name</mat-label>
-        <input type="text" matInput formControlName="name">
+        <input type="text" placeholder="Enter your name" matInput formControlName="name">
+
         <mat-error *ngIf="ctrl.hasError('required')">
           Name is <strong>required</strong>
         </mat-error>
@@ -17,6 +18,7 @@
           Max length is {{ ctrl.errors?.['maxlength']?.['requiredLength'] }},
           actual {{ ctrl.errors?.['maxlength']?.['actualLength'] }}
         </mat-error>
+
       </mat-form-field>
     </ng-container>
 
@@ -25,13 +27,17 @@
         appearance="fill" hideRequiredMarker="true"
         *ngIf="confirmPassword as ctrl">
         <mat-label>Confirm Password</mat-label>
-        <input type="password" matInput formControlName="confirmPassword">
+        <input placeholder="Confirmation should match your password" matInput [type]="isVisible ? 'text' : 'password'"
+          formControlName="confirmPassword">
+        <mat-icon matSuffix (click)="togglePasswordVisibility()">visibility</mat-icon>
+
         <mat-error *ngIf="ctrl.hasError('required')">
           Confirm Password is <strong>required</strong>
         </mat-error>
         <mat-hint *ngIf="ctrl.touched && ctrl.dirty && registerForm.hasError('match_values')">
           Passwords should match
         </mat-hint>
+
       </mat-form-field>
     </ng-container>
 

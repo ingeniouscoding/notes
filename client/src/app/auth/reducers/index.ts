@@ -48,9 +48,16 @@ const selectLoginPageState = createSelector(
   (state) => state.loginPage
 );
 
-export const selectLoginPageError = createSelector(
+export const selectLoginPageErrors = createSelector(
   selectLoginPageState,
-  (state) => state.error
+  (state) => {
+    if (!state.error || !('errors' in state.error)) {
+      return null;
+    }
+    const emailErrors = state.error.errors.email ?? [];
+    const passwordErrors = state.error.errors.password ?? [];
+    return [].concat(emailErrors, passwordErrors);
+  }
 );
 export const selectLoginPagePending = createSelector(
   selectLoginPageState,
@@ -60,4 +67,17 @@ export const selectLoginPagePending = createSelector(
 const selectRegisterPageState = createSelector(
   selectAuthStateFeature,
   (state) => state.registerPage
+);
+
+export const selectRegisterPageErrors = createSelector(
+  selectRegisterPageState,
+  (state) => {
+    if (!state.error || !('errors' in state.error)) {
+      return null;
+    }
+    const nameErrors = state.error.errors.name ?? [];
+    const emailErrors = state.error.errors.email ?? [];
+    const passwordErrors = state.error.errors.password ?? [];
+    return [].concat(nameErrors, emailErrors, passwordErrors);
+  }
 );

@@ -6,7 +6,8 @@
     appearance="fill" hideRequiredMarker="true"
     *ngIf="parentGroup.get('email') as ctrl">
     <mat-label>Email</mat-label>
-    <input type="email" matInput formControlName="email">
+    <input type="email" placeholder="Enter your email address" matInput formControlName="email">
+
     <mat-error *ngIf="ctrl.hasError('required')">
       Email is <strong>required</strong>
     </mat-error>
@@ -17,14 +18,17 @@
       Max length is {{ ctrl.errors?.['maxlength']?.['requiredLength'] }},
       actual {{ ctrl.errors?.['maxlength']?.['actualLength'] }}
     </mat-error>
+
   </mat-form-field>
 
   <mat-form-field class="auth-form__input"
     appearance="fill" hideRequiredMarker="true"
     *ngIf="parentGroup.get('password') as ctrl">
     <mat-label>Password</mat-label>
-    <input type="password" placeholder="Minimum 6 characters"
-      matInput formControlName="password">
+    <input placeholder="Minimum 8 characters" matInput [type]="isVisible ? 'text' : 'password'"
+      formControlName="password">
+    <mat-icon matSuffix (click)="togglePasswordVisibility()">visibility</mat-icon>
+
     <mat-error *ngIf="ctrl?.hasError('required')">
       Password is <strong>required</strong>
     </mat-error>
@@ -36,6 +40,7 @@
       Max length is {{ ctrl.errors?.['maxlength']?.['requiredLength'] }},
       actual {{ ctrl.errors?.['maxlength']?.['actualLength'] }}
     </mat-error>
+
   </mat-form-field>
 
   <ng-content select="[slot=end]"></ng-content>
@@ -44,6 +49,15 @@
     <button mat-raised-button color="accent" [disabled]="!parentGroup.valid" (click)="onSubmit()">
       {{ submitButton }}
     </button>
+  </div>
+
+  <div class="auth-form__errors" *ngIf="errors.length > 0">
+    <div class="auth-form__err-msg" *ngFor="let error of errors; let i = index">
+      <p>{{ error }}</p>
+      <button mat-icon-button (click)="onDeleteErrorMessage(i)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
   </div>
 
 </ng-container>

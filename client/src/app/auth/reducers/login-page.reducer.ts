@@ -5,7 +5,7 @@ import { AuthApiActions, LoginPageActions } from "../actions";
 export const loginPageFeatureKey = 'loginPage';
 
 export interface State {
-  error: string | null;
+  error: any;
   pending: boolean;
 }
 

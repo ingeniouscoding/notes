@@ -7,6 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 import * as fromAuth from '@notes/auth/reducers';
 import { LoginPageComponent } from './components/login-page/login-page.component';
@@ -32,6 +33,7 @@ import { AuthFormUiComponent } from './ui/auth-form-ui/auth-form-ui.component';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
+    MatIconModule,
   ],
   providers: [
     GuestOnlyGuard,

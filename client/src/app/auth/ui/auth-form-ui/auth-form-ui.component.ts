@@ -9,10 +9,20 @@ import { FormGroup } from '@angular/forms';
 export class AuthFormUiComponent {
   @Input() public parentGroup!: FormGroup;
   @Input() public submitButton!: string;
-  @Input() public errorMessage!: string[];
+  @Input() public errors!: string[];
   @Output() public submit = new EventEmitter();
+
+  public isVisible = false;
 
   onSubmit() {
     this.submit.emit();
+  }
+
+  onDeleteErrorMessage(index: number) {
+    this.errors = this.errors.filter((_, i) => index !== i);
+  }
+
+  togglePasswordVisibility() {
+    this.isVisible = !this.isVisible;
   }
 }

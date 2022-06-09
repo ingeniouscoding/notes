@@ -5,7 +5,7 @@ import { AuthApiActions, RegisterPageActions } from "../actions";
 export const registerPageFeatureKey = 'registerPage';
 
 export interface State {
-  error: string | null;
+  error: any;
   pending: boolean;
 }
 

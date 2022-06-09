@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import * as fromAuth from '@notes/auth/reducers';
 import { RegisterPageActions } from '@notes/auth/actions';
 import { AuthService, RegisterCredentials } from '@notes/auth/services/auth.service';
 import { UserFormService } from '@notes/auth/services/user-form.service';
@@ -12,6 +13,8 @@ import { UserFormService } from '@notes/auth/services/user-form.service';
 })
 export class RegisterPageComponent implements OnInit {
   public registerForm = this.formFactory.getRegisterForm();
+  public errors$ = this.store.select(fromAuth.selectRegisterPageErrors);
+  public isVisible = false;
 
   get name() {
     return this.registerForm.get('name');
@@ -48,5 +51,9 @@ export class RegisterPageComponent implements OnInit {
     };
 
     this.store.dispatch(RegisterPageActions.register({ credentials }));
+  }
+
+  togglePasswordVisibility() {
+    this.isVisible = !this.isVisible;
   }
 }

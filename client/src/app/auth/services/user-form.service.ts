@@ -71,7 +71,7 @@ export class UserFormService {
   private getRegisterPasswordControl() {
     return new FormControl('', [
       Validators.required,
-      Validators.minLength(6),
+      Validators.minLength(8),
       Validators.maxLength(255),
     ]);
   }

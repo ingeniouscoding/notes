@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import * as fromAuth from '@notes/auth/reducers';
 import { AuthService, LoginCredentials } from '@notes/auth/services/auth.service';
 import { UserFormService } from '@notes/auth/services/user-form.service';
 import { LoginPageActions } from '@notes/auth/actions';
@@ -12,6 +13,7 @@ import { LoginPageActions } from '@notes/auth/actions';
 })
 export class LoginPageComponent implements OnInit {
   public loginForm = this.formFactory.getLoginForm();
+  public errors$ = this.store.select(fromAuth.selectLoginPageErrors);
 
   get email() {
     return this.loginForm.get('email');

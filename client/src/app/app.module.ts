@@ -5,6 +5,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CookieService } from 'ngx-cookie-service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from '@notes/app-routing.module';
 import { AppComponent } from '@notes/core/components/app/app.component';
@@ -27,6 +28,7 @@ import { reducers } from './app.state';
     AppRoutingModule,
     AuthModule,
     CoreModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     {

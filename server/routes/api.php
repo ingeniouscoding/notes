@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\CheckEmailController;
+use App\Http\Controllers\Notes\NoteController;
+use App\Http\Controllers\User\CheckEmailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,8 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 })->name('get-user');
 
 Route::get('/exists', [CheckEmailController::class, 'show'])->name('check-email');
+
+Route::prefix('notes')->group(function () {
+    Route::get('/', [NoteController::class, 'index']);
+    Route::post('/', [NoteController::class, 'store']);
+});

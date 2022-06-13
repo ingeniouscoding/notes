@@ -1,15 +1,23 @@
 <header class="header" *ngIf="vm$ | async as vm">
-  <ng-container *ngIf="vm.isAuth else guest">
-    <div>
-      <button (click)="onLogout()">Logout</button>
-      <ul>
-        <li><a [routerLink]="['/']">home</a></li>
-      </ul>
-    </div>
-    <div *ngIf="vm.user">
-      <h1>{{ vm.user.name }}</h1>
-    </div>
-  </ng-container>
+  <div>
+    <ul>
+      <li><a [routerLink]="['/notes']">Notes</a></li>
+      <li><a [routerLink]="['/notes/create']">Create note</a></li>
+    </ul>
+  </div>
+  <nav>
+    <ng-container *ngIf="vm.isAuth else guest">
+      <div>
+        <button (click)="onLogout()">Logout</button>
+        <ul>
+          <li><a [routerLink]="['/']">home</a></li>
+        </ul>
+      </div>
+      <div *ngIf="vm.user">
+        <h1>{{ vm.user.name }}</h1>
+      </div>
+    </ng-container>
+  </nav>
 </header>
 
 <ng-template #guest>

@@ -51,8 +51,8 @@ export class AuthEffects {
         this.authService.register(credentials)
           .pipe(
             map((user) => AuthApiActions.registerSuccess({ user })),
-            catchError((error) =>
-              of(AuthApiActions.registerFailure({ error: error.error }))
+            catchError((err) =>
+              of(AuthApiActions.registerFailure({ error: err.error }))
             )
           )
       )

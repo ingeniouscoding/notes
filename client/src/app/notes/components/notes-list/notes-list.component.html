@@ -1,1 +1,24 @@
 <p>notes-list works!</p>
+<div *ngIf="vm$ | async as vm">
+
+  <div *ngIf="vm.page.pending else notes">
+    <h2>loading...</h2>
+  </div>
+
+  <ng-template #notes>
+    <div *ngIf="vm.notes else noNotes">
+      <h1 *ngFor="let note of vm.notes">{{ note.title }}</h1>
+    </div>
+
+    <ng-template #noNotes>
+      <div *ngIf="vm.page.error">
+        <h2>Connection error</h2>
+      </div>
+
+      <h2 *ngIf="!vm.page.error">
+        <h2>No notes</h2>
+      </h2>
+    </ng-template>
+  </ng-template>
+
+</div>

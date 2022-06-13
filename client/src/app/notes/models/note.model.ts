@@ -2,7 +2,7 @@ export interface Note {
   body: string;
   title: string;
   color: string;
-  id?: number;
+  id?: string;
   created_at?: Date;
   updated_at?: Date;
 }

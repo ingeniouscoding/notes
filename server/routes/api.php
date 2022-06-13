@@ -26,6 +26,9 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::get('/exists', [CheckEmailController::class, 'show'])->name('check-email');
 
 Route::prefix('notes')->group(function () {
-    Route::get('/', [NoteController::class, 'index']);
-    Route::post('/', [NoteController::class, 'store']);
+    Route::get('/',          [NoteController::class, 'index'])->name('notes.index');
+    Route::post('/',         [NoteController::class, 'store'])->name('notes.store');
+    Route::get('/{note}',    [NoteController::class, 'show'])->name('notes.show');
+    Route::patch('/{note}',  [NoteController::class, 'update'])->name('notes.update');
+    Route::delete('/{note}', [NoteController::class, 'destroy'])->name('notes.destroy');
 });

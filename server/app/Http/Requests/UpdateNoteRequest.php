@@ -24,7 +24,9 @@ class UpdateNoteRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => ['required', 'string', 'max:255'],
+            'body'  => ['required', 'string', 'max:255'],
+            'color' => ['required', 'string', 'max:30'],
         ];
     }
 }

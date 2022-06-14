@@ -2,7 +2,7 @@
 <div *ngIf="vm$ | async as vm">
 
   <div *ngIf="vm.notes && vm.notes.length > 0 else noNotes">
-    <div class="note" *ngFor="let note of vm.notes">
+    <div class="note" *ngFor="let note of vm.notes" [ngStyle]="{'background': note.color}">
       <h1>
         <a [routerLink]="['/notes', note.id]">{{ note.title }}</a>
       </h1>

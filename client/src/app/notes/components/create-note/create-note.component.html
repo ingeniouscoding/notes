@@ -8,8 +8,12 @@
     <input type="text" formControlName="body">
   </p>
   <p>
-    <label>Color</label>
-    <input type="text" formControlName="color">
+    <label for="color">Color</label>
+    <select id="color" formControlName="color">
+      <option value="#d5e781">Green</option>
+      <option value="#7fffd4">Aquamarine</option>
+      <option value="#eeeeee">White</option>
+    </select>
   </p>
   <button type="submit">Create</button>
 </form>

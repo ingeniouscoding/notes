@@ -14,7 +14,7 @@ export class CreateNoteComponent {
   public fg = this.fb.group({
     title: '',
     body: '',
-    color: '',
+    color: '#d5e781',
   });
 
   constructor(
@@ -28,7 +28,6 @@ export class CreateNoteComponent {
       body: this.fg.value.body ?? '',
       color: this.fg.value.color ?? '',
     };
-    console.log(note);
     this.store.dispatch(NotesActions.create({ note }));
   }
 }

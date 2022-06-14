@@ -13,7 +13,7 @@ import { Note } from '@notes/notes/models/note.model';
 export class CreateNoteComponent {
   public fg = this.fb.group({
     title: '',
-    body: '',
+    content: '',
     color: '#d5e781',
   });
 
@@ -25,7 +25,7 @@ export class CreateNoteComponent {
   onCreate() {
     const note: Note = {
       title: this.fg.value.title ?? '',
-      body: this.fg.value.body ?? '',
+      content: this.fg.value.content ?? '',
       color: this.fg.value.color ?? '',
     };
     this.store.dispatch(NotesActions.create({ note }));

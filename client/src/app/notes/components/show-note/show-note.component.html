@@ -1,9 +1,8 @@
 <p>show-note works!</p>
 <div *ngIf="vm$ | async as vm">
-  <div *ngIf="vm.note as note else noNote">
+  <div *ngIf="vm.note as note else noNote" [ngStyle]="{'background': note.color}">
     <h2>{{ note.title }}</h2>
-    <h4>{{ note.body }}</h4>
-    <h4>{{ note.body }}</h4>
+    <h4>{{ note.content }}</h4>
   </div>
   <ng-template #noNote>
     <div *ngIf="vm.page.error?.status === 404">

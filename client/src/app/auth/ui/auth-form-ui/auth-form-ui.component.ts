@@ -10,6 +10,8 @@ export class AuthFormUiComponent {
   @Input() public parentGroup!: FormGroup;
   @Input() public submitButton!: string;
   @Input() public errors!: string[];
+  @Input() public isPending!: boolean;
+
   @Output() public submit = new EventEmitter();
 
   public isVisible = false;

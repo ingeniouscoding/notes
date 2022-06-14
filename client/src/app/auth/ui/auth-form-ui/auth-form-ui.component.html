@@ -50,7 +50,7 @@
   <ng-content select="[slot=end]"></ng-content>
 
   <div class="auth-form__actions">
-    <button mat-raised-button color="accent" [disabled]="!parentGroup.valid" (click)="onSubmit()">
+    <button mat-raised-button color="accent" [disabled]="!parentGroup.valid || isPending" (click)="onSubmit()">
       {{ submitButton }}
     </button>
   </div>

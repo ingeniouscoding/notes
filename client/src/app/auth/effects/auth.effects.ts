@@ -24,8 +24,14 @@ export class AuthEffects {
         this.authService.login(credentials)
           .pipe(
             map((user) => AuthApiActions.loginSuccess({ user })),
-            catchError((error) =>
-              of(AuthApiActions.loginFailure({ error: error.error }))
+            catchError((err) =>
+              of(AuthApiActions.loginFailure({
+                error: {
+                  status: err.status,
+                  message: err.message,
+                  errors: err.error.errors,
+                }
+              }))
             )
           )
       )
@@ -51,8 +57,14 @@ export class AuthEffects {
         this.authService.register(credentials)
           .pipe(
             map((user) => AuthApiActions.registerSuccess({ user })),
-            catchError((err) =>
-              of(AuthApiActions.registerFailure({ error: err.error }))
+            catchError(
+              (err) => of(AuthApiActions.registerFailure({
+                error: {
+                  status: err.status,
+                  message: err.message,
+                  errors: err.error.errors,
+                }
+              }))
             )
           )
       )

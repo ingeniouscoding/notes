@@ -5,6 +5,7 @@ import * as fromAuth from '@notes/auth/reducers';
 import { RegisterPageActions } from '@notes/auth/actions';
 import { AuthService, RegisterCredentials } from '@notes/auth/services/auth.service';
 import { UserFormService } from '@notes/auth/services/user-form.service';
+import { map, tap } from 'rxjs';
 
 @Component({
   selector: 'app-register-page',
@@ -12,9 +13,24 @@ import { UserFormService } from '@notes/auth/services/user-form.service';
   styleUrls: ['./register-page.component.scss'],
 })
 export class RegisterPageComponent implements OnInit {
-  public registerForm = this.formFactory.getRegisterForm();
-  public errors$ = this.store.select(fromAuth.selectRegisterPageErrors);
   public isVisible = false;
+  public registerForm = this.formFactory.getRegisterForm();
+  public isPending$ = this.store.select(fromAuth.selectRegisterPageIsPending);
+  public errors$ = this.store.select(fromAuth.selectRegisterPageError)
+    .pipe(
+      map((err) => {
+        if (err === null) {
+          return null;
+        }
+        if (err.status === 422) {
+          const nameErrors = err.errors.name ?? [];
+          const emailErrors = err.errors.email ?? [];
+          const passwordErrors = err.errors.password ?? [];
+          return [].concat(nameErrors, emailErrors, passwordErrors);
+        }
+        return ['Server error'];
+      })
+    );
 
   get name() {
     return this.registerForm.get('name');

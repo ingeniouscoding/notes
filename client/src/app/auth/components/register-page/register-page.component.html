@@ -2,6 +2,7 @@
   <app-auth-form-ui submitButton="Register"
     [parentGroup]="registerForm"
     [errors]="(errors$ | async) ?? []"
+    [isPending]="(isPending$ | async) ?? false"
     (submit)="onRegister()">
 
     <ng-container slot="start">

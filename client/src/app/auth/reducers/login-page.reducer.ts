@@ -1,34 +1,35 @@
 import { createReducer, on } from "@ngrx/store";
 
 import { AuthApiActions, LoginPageActions } from "../actions";
+import { AuthError } from "../models/auth-error.interface";
 
 export const loginPageFeatureKey = 'loginPage';
 
 export interface State {
-  error: any;
   pending: boolean;
+  error: AuthError| null;
 }
 
 const initialState: State = {
-  error: null,
   pending: false,
+  error: null,
 };
 
 export const reducer = createReducer(
   initialState,
   on(LoginPageActions.login, (state) => ({
     ...state,
-    error: null,
     pending: true,
+    error: null,
   })),
   on(AuthApiActions.loginSuccess, (state) => ({
     ...state,
-    error: null,
     pending: false,
+    error: null,
   })),
   on(AuthApiActions.loginFailure, (state, { error }) => ({
     ...state,
-    error,
     pending: false,
+    error,
   }))
 );

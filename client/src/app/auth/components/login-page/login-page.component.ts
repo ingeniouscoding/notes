@@ -5,6 +5,7 @@ import * as fromAuth from '@notes/auth/reducers';
 import { AuthService, LoginCredentials } from '@notes/auth/services/auth.service';
 import { UserFormService } from '@notes/auth/services/user-form.service';
 import { LoginPageActions } from '@notes/auth/actions';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -13,7 +14,21 @@ import { LoginPageActions } from '@notes/auth/actions';
 })
 export class LoginPageComponent implements OnInit {
   public loginForm = this.formFactory.getLoginForm();
-  public errors$ = this.store.select(fromAuth.selectLoginPageErrors);
+  public isPending$ = this.store.select(fromAuth.selectLoginPageIsPending);
+  public errors$ = this.store.select(fromAuth.selectLoginPageError)
+    .pipe(
+      map((err) => {
+        if (err === null) {
+          return null;
+        }
+        if (err.status === 422) {
+          const emailErrors = err.errors.email ?? [];
+          const passwordErrors = err.errors.password ?? [];
+          return [].concat(emailErrors, passwordErrors);
+        }
+        return ['Server error'];
+      })
+    );
 
   get email() {
     return this.loginForm.get('email');

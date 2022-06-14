@@ -48,18 +48,12 @@ const selectLoginPageState = createSelector(
   (state) => state.loginPage
 );
 
-export const selectLoginPageErrors = createSelector(
+export const selectLoginPageError = createSelector(
   selectLoginPageState,
-  (state) => {
-    if (!state.error || !('errors' in state.error)) {
-      return null;
-    }
-    const emailErrors = state.error.errors.email ?? [];
-    const passwordErrors = state.error.errors.password ?? [];
-    return [].concat(emailErrors, passwordErrors);
-  }
+  (state) => state.error
 );
-export const selectLoginPagePending = createSelector(
+
+export const selectLoginPageIsPending = createSelector(
   selectLoginPageState,
   (state) => state.pending
 );
@@ -69,15 +63,12 @@ const selectRegisterPageState = createSelector(
   (state) => state.registerPage
 );
 
-export const selectRegisterPageErrors = createSelector(
+export const selectRegisterPageError = createSelector(
   selectRegisterPageState,
-  (state) => {
-    if (!state.error || !('errors' in state.error)) {
-      return null;
-    }
-    const nameErrors = state.error.errors.name ?? [];
-    const emailErrors = state.error.errors.email ?? [];
-    const passwordErrors = state.error.errors.password ?? [];
-    return [].concat(nameErrors, emailErrors, passwordErrors);
-  }
+  (state) => state.error
+);
+
+export const selectRegisterPageIsPending = createSelector(
+  selectRegisterPageState,
+  (state) => state.pending
 );

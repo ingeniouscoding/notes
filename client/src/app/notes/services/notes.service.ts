@@ -20,11 +20,17 @@ export class NotesService {
       );
   }
 
-  create() {
-    this.http.post<Note>(this.api, {
-      title: 'title test',
-      body: 'body test',
-      color: 'color test',
-    }).subscribe(console.log);
+  getById(id: string): Observable<Note> {
+    return this.http.get<{ data: Note; }>(this.api + `/${id}`)
+      .pipe(
+        map((response) => response.data)
+      );
+  }
+
+  create(note: Note): Observable<Note> {
+    return this.http.post<{ data: Note; }>(this.api, note)
+      .pipe(
+        map((response) => response.data)
+      );
   }
 }

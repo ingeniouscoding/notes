@@ -1,0 +1,13 @@
+<p>show-note works!</p>
+<div *ngIf="vm$ | async as vm">
+  <div *ngIf="vm.note as note else noNote">
+    <h2>{{ note.title }}</h2>
+    <h4>{{ note.body }}</h4>
+    <h4>{{ note.body }}</h4>
+  </div>
+  <ng-template #noNote>
+    <div *ngIf="vm.page.error?.status === 404">
+      <h2>Not Found 404</h2>
+    </div>
+  </ng-template>
+</div>

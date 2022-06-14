@@ -2,7 +2,7 @@ import { createReducer, on } from "@ngrx/store";
 
 import { NotesActions, NotesApiActions } from "../actions";
 
-export const listPageFeatureKey = 'listPage';
+export const showPageFeatureKey = 'showPage';
 
 export interface State {
   pending: boolean;
@@ -19,13 +19,13 @@ const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(NotesActions.getAll, (state) => ({
+  on(NotesActions.getById, (state) => ({
     ...state,
     pending: true,
     error: null,
   })),
-  on(NotesApiActions.getAllSuccess, () => initialState),
-  on(NotesApiActions.getAllFailure, (state, { error }) => ({
+  on(NotesApiActions.getByIdSuccess, () => initialState),
+  on(NotesApiActions.getByIdFailure, (state, { error }) => ({
     ...state,
     pending: false,
     error,

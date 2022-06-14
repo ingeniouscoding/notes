@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest, map, tap } from 'rxjs';
 
@@ -10,15 +10,8 @@ import { NotesActions } from '@notes/notes/actions';
   templateUrl: './notes-list.component.html',
   styleUrls: ['./notes-list.component.scss'],
 })
-export class NotesListComponent {
-  private notes$ = this.store.select(fromNotes.selectNotes)
-    .pipe(
-      tap((notes) => {
-        if (notes === null) {
-          this.store.dispatch(NotesActions.getAll());
-        }
-      })
-    );
+export class NotesListComponent implements OnInit {
+  private notes$ = this.store.select(fromNotes.selectNotes);
   private page$ = this.store.select(fromNotes.selectListPageState);
 
   public vm$ = combineLatest([this.notes$, this.page$])
@@ -27,4 +20,8 @@ export class NotesListComponent {
     );
 
   constructor(private store: Store) { }
+
+  ngOnInit(): void {
+    this.store.dispatch(NotesActions.getAll());
+  }
 }

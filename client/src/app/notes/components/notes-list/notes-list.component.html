@@ -1,14 +1,13 @@
 <p>notes-list works!</p>
 <div *ngIf="vm$ | async as vm">
 
-  <div *ngIf="vm.page.pending">
-    <h2>loading...</h2>
-  </div>
-
-  <div *ngIf="vm.notes else noNotes">
-    <h1 *ngFor="let note of vm.notes">
-      <a [routerLink]="['/notes', note.id]">{{ note.title }}</a>
-    </h1>
+  <div *ngIf="vm.notes && vm.notes.length > 0 else noNotes">
+    <div class="note" *ngFor="let note of vm.notes">
+      <h1>
+        <a [routerLink]="['/notes', note.id]">{{ note.title }}</a>
+      </h1>
+      <button (click)="onDestroy(note.id!)">X</button>
+    </div>
   </div>
 
   <ng-template #noNotes>
@@ -16,9 +15,13 @@
       <h2>Connection error</h2>
     </div>
 
-    <h2 *ngIf="!vm.page.error">
+    <h2 *ngIf="!vm.page.error && !vm.page.pending">
       <h2>No notes</h2>
     </h2>
   </ng-template>
+
+  <div *ngIf="vm.page.pending">
+    <h2>loading...</h2>
+  </div>
 
 </div>

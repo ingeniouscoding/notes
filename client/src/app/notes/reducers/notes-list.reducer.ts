@@ -32,5 +32,9 @@ export const reducer = createReducer(
   on(NotesApiActions.getByIdSuccess, (state, { note }) => ({
     ...state,
     current: note,
+  })),
+  on(NotesApiActions.destroySuccess, (state, { id }) => ({
+    ...state,
+    notes: state.notes?.filter((n) => n.id !== id) ?? null,
   }))
 );

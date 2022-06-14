@@ -27,15 +27,4 @@ export const reducer = createReducer(
     pending: false,
     error,
   }))
-  // on(NotesActions.getById, (state) => ({
-  //   ...state,
-  //   pending: true,
-  //   error: null,
-  // })),
-  // on(NotesApiActions.getByIdSuccess, () => initialState),
-  // on(NotesApiActions.getByIdFailure, (state, { error }) => ({
-  //   ...state,
-  //   pending: false,
-  //   error,
-  // }))
 );

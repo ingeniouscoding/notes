@@ -24,4 +24,8 @@ export class NotesListComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(NotesActions.getAll());
   }
+
+  onDestroy(id: string) {
+    this.store.dispatch(NotesActions.destroy({ id }));
+  }
 }

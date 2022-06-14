@@ -43,7 +43,8 @@ export const updateFailure = createAction(
 );
 
 export const destroySuccess = createAction(
-  '[Notes/API] Destroy Success'
+  '[Notes/API] Destroy Success',
+  props<{ id: string; }>()
 );
 
 export const destroyFailure = createAction(

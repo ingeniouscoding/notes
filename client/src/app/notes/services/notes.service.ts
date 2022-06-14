@@ -33,4 +33,8 @@ export class NotesService {
         map((response) => response.data)
       );
   }
+
+  destroy(id: string): Observable<any> {
+    return this.http.delete(this.api + `/${id}`);
+  }
 }

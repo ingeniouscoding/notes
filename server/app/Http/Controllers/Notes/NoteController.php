@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Notes;
 
 use App\Models\Note;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreNoteRequest;
-use App\Http\Requests\UpdateNoteRequest;
+use App\Http\Requests\Notes\StoreNoteRequest;
+use App\Http\Requests\Notes\UpdateNoteRequest;
 use App\Http\Resources\NoteCollection;
 use App\Http\Resources\NoteResource;
 use Illuminate\Http\Response;

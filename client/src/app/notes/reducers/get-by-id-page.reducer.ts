@@ -3,7 +3,7 @@ import { createReducer, on } from "@ngrx/store";
 import { NotesActions, NotesApiActions } from "../actions";
 import { NotesError } from "../models/notes-error.interface";
 
-export const showPageFeatureKey = 'showPage';
+export const getByIdPageFeatureKey = 'getByIdPage';
 
 export interface State {
   pending: boolean;

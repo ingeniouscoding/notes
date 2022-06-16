@@ -35,10 +35,11 @@ export class NotesService {
   }
 
   update(note: Note): Observable<Note> {
-    return this.http.patch<{ data: Note; }>(this.api, <NoteUpdateDTO>note)
-      .pipe(
-        map((res) => res.data)
-      );
+    return this.http.patch<{ data: Note; }>(
+      this.api + `/${note.id}`, <NoteUpdateDTO>note
+    ).pipe(
+      map((res) => res.data)
+    );
   }
 
   destroy(id: string): Observable<any> {

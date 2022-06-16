@@ -67,6 +67,27 @@ export class NotesEffects {
     )
   );
 
+  update$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(NotesActions.update),
+      concatMap(({ note }) =>
+        this.notesService.update(note)
+          .pipe(
+            map((note) => NotesApiActions.updateSuccess({ note })),
+            catchError((err) =>
+              of(NotesApiActions.updateFailure({
+                id: note.id ?? '0',
+                error: {
+                  status: err.status,
+                  message: err.message,
+                },
+              }))
+            )
+          )
+      )
+    )
+  );
+
   destroy$ = createEffect(() =>
     this.actions$.pipe(
       ofType(NotesActions.destroy),

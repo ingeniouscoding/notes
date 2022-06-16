@@ -11,6 +11,8 @@ import { CreateNoteComponent } from './components/create-note/create-note.compon
 import { NotesEffects } from './effects/notes.effects';
 import { ShowNoteComponent } from './components/show-note/show-note.component';
 import { UpdateNoteComponent } from './components/update-note/update-note.component';
+import { UpdateFormComponent } from './ui/update-form/update-form.component';
+import { GetNoteComponent } from './components/get-note/get-note.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { UpdateNoteComponent } from './components/update-note/update-note.compon
     CreateNoteComponent,
     ShowNoteComponent,
     UpdateNoteComponent,
+    UpdateFormComponent,
+    GetNoteComponent,
   ],
   imports: [
     CommonModule,

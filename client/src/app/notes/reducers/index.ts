@@ -5,8 +5,8 @@ import { State } from "@notes/app.state";
 import * as fromNotesList from './notes-list.reducer';
 import * as fromListPage from './list-page.reducer';
 import * as fromCreatePage from './create-page.reducer';
-import * as fromShowPage from './show-page.reducer';
-import * as fromEditPage from './edit-page.reducer';
+import * as fromGetByIdPage from './get-by-id-page.reducer';
+import * as fromUpdatePage from './update-page.reducer';
 
 export const notesFeatureKey = 'notes';
 
@@ -14,8 +14,8 @@ export interface NotesState extends State {
   [fromNotesList.notesListFeatureKey]: fromNotesList.State,
   [fromListPage.listPageFeatureKey]: fromListPage.State,
   [fromCreatePage.createPageFeatureKey]: fromCreatePage.State,
-  [fromShowPage.showPageFeatureKey]: fromShowPage.State,
-  [fromEditPage.editPageFeatureKey]: fromEditPage.State,
+  [fromGetByIdPage.getByIdPageFeatureKey]: fromGetByIdPage.State,
+  [fromUpdatePage.updatePageFeatureKey]: fromUpdatePage.State,
 }
 
 export function reducers(state: NotesState | undefined, action: Action) {
@@ -23,8 +23,8 @@ export function reducers(state: NotesState | undefined, action: Action) {
     [fromNotesList.notesListFeatureKey]: fromNotesList.reducer,
     [fromListPage.listPageFeatureKey]: fromListPage.reducer,
     [fromCreatePage.createPageFeatureKey]: fromCreatePage.reducer,
-    [fromShowPage.showPageFeatureKey]: fromShowPage.reducer,
-    [fromEditPage.editPageFeatureKey]: fromEditPage.reducer,
+    [fromGetByIdPage.getByIdPageFeatureKey]: fromGetByIdPage.reducer,
+    [fromUpdatePage.updatePageFeatureKey]: fromUpdatePage.reducer,
   })(state, action);
 }
 
@@ -56,12 +56,12 @@ export const selectCreatePageState = createSelector(
   (state) => state.createPage
 );
 
-export const selectShowPageState = createSelector(
+export const selectGetByIdPageState = createSelector(
   selectNotesStateFeature,
-  (state) => state.showPage
+  (state) => state.getByIdPage
 );
 
-export const selectEditPageState = createSelector(
+export const selectUpdatePageState = createSelector(
   selectNotesStateFeature,
-  (state) => state.editPage
+  (state) => state.updatePage
 );

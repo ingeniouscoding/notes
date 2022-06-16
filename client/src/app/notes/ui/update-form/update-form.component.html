@@ -1,0 +1,19 @@
+<form [formGroup]="fg" (ngSubmit)="onSave()">
+  <p>
+    <label>Title</label>
+    <input type="text" formControlName="title">
+  </p>
+  <p>
+    <label>Content</label>
+    <input type="text" formControlName="content">
+  </p>
+  <p>
+    <label for="color">Color</label>
+    <select id="color" formControlName="color">
+      <option value="#d5e781">Green</option>
+      <option value="#7fffd4">Aquamarine</option>
+      <option value="#eeeeee">White</option>
+    </select>
+  </p>
+  <button type="submit">Save changes</button>
+</form>

@@ -1,1 +1,5 @@
-<p>update-note works!</p>
+<div *ngIf="vm$ | async as vm">
+  <div *ngIf="vm.note as note" [ngStyle]="{'background': note.color}">
+    <app-update-form [note]="note" (save)="onSave($event)"></app-update-form>
+  </div>
+</div>

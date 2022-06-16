@@ -1,0 +1,15 @@
+<ng-container *ngIf="page$ |async as page">
+
+  <router-outlet *ngIf="!page.error else error"></router-outlet>
+
+  <div *ngIf="page.pending">
+    <h2>Loading...</h2>
+  </div>
+
+  <ng-template #error>
+    <div *ngIf="page.error?.status === 404">
+      <h2>Not Found 404</h2>
+    </div>
+  </ng-template>
+
+</ng-container>

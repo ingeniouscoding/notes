@@ -6,6 +6,7 @@ import * as fromNotesList from './notes-list.reducer';
 import * as fromListPage from './list-page.reducer';
 import * as fromCreatePage from './create-page.reducer';
 import * as fromShowPage from './show-page.reducer';
+import * as fromEditPage from './edit-page.reducer';
 
 export const notesFeatureKey = 'notes';
 
@@ -14,6 +15,7 @@ export interface NotesState extends State {
   [fromListPage.listPageFeatureKey]: fromListPage.State,
   [fromCreatePage.createPageFeatureKey]: fromCreatePage.State,
   [fromShowPage.showPageFeatureKey]: fromShowPage.State,
+  [fromEditPage.editPageFeatureKey]: fromEditPage.State,
 }
 
 export function reducers(state: NotesState | undefined, action: Action) {
@@ -22,6 +24,7 @@ export function reducers(state: NotesState | undefined, action: Action) {
     [fromListPage.listPageFeatureKey]: fromListPage.reducer,
     [fromCreatePage.createPageFeatureKey]: fromCreatePage.reducer,
     [fromShowPage.showPageFeatureKey]: fromShowPage.reducer,
+    [fromEditPage.editPageFeatureKey]: fromEditPage.reducer,
   })(state, action);
 }
 
@@ -56,4 +59,9 @@ export const selectCreatePageState = createSelector(
 export const selectShowPageState = createSelector(
   selectNotesStateFeature,
   (state) => state.showPage
+);
+
+export const selectEditPageState = createSelector(
+  selectNotesStateFeature,
+  (state) => state.editPage
 );

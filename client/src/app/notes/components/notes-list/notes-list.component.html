@@ -6,7 +6,10 @@
       <h1>
         <a [routerLink]="['/notes', note.id]">{{ note.title }}</a>
       </h1>
-      <button (click)="onDestroy(note.id!)">X</button>
+      <div>
+        <button><a [routerLink]="['/notes', note.id, 'edit']">Edit</a></button>
+        <button (click)="onDestroy(note.id!)" [disabled]="note.isPending">X</button>
+      </div>
     </div>
   </div>
 

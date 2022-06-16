@@ -5,4 +5,11 @@ export interface Note {
   id?: string;
   created_at?: Date;
   updated_at?: Date;
+  isPending?: boolean;
+}
+
+export interface NoteUpdateDTO {
+  title: string;
+  content: string;
+  color: string;
 }

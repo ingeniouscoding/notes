@@ -1,12 +1,13 @@
 import { createReducer, on } from "@ngrx/store";
 
 import { NotesActions, NotesApiActions } from "../actions";
+import { NotesError } from "../models/notes-error.interface";
 
 export const createPageFeatureKey = 'createPage';
 
 export interface State {
   pending: boolean;
-  error: string | null;
+  error: NotesError | null;
 }
 
 const initialState: State = {

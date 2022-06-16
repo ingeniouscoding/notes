@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, exhaustMap, map, mergeMap, of, switchMap } from "rxjs";
+import { catchError, concatMap, exhaustMap, map, mergeMap, of, switchMap } from "rxjs";
 
 import { NotesActions, NotesApiActions } from "../actions";
 import { NotesService } from "../services/notes.service";
@@ -39,7 +39,7 @@ export class NotesEffects {
                 error: {
                   status: err.status,
                   message: err.message,
-                }
+                },
               }))
             )
           )
@@ -50,11 +50,17 @@ export class NotesEffects {
   create$ = createEffect(() =>
     this.actions$.pipe(
       ofType(NotesActions.create),
-      exhaustMap(({ note }) =>
+      concatMap(({ note }) =>
         this.notesService.create(note)
           .pipe(
             map((note) => NotesApiActions.createSuccess({ note })),
-            catchError((err) => of(NotesApiActions.createFailure({ error: err.error }))
+            catchError((err) =>
+              of(NotesApiActions.createFailure({
+                error: {
+                  status: err.status,
+                  message: err.message,
+                },
+              }))
             )
           )
       )
@@ -68,8 +74,14 @@ export class NotesEffects {
         this.notesService.destroy(id)
           .pipe(
             map(() => NotesApiActions.destroySuccess({ id })),
-            catchError((error) =>
-              of(NotesApiActions.destroyFailure({ error }))
+            catchError((err) =>
+              of(NotesApiActions.destroyFailure({
+                id,
+                error: {
+                  status: err.status,
+                  message: err.message,
+                },
+              }))
             )
           )
       )

@@ -1,6 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 
 import { Note } from "../models/note.model";
+import { NotesError } from "../models/notes-error.interface";
 
 export const getAllSuccess = createAction(
   '[Notes/API] Get All Notes Success',
@@ -9,7 +10,7 @@ export const getAllSuccess = createAction(
 
 export const getAllFailure = createAction(
   '[Notes/API] Get All Notes Failure',
-  props<{ error: { status: number, message: string; }; }>()
+  props<{ error: NotesError; }>()
 );
 
 export const getByIdSuccess = createAction(
@@ -19,7 +20,7 @@ export const getByIdSuccess = createAction(
 
 export const getByIdFailure = createAction(
   '[Notes/API] Get By ID Failure',
-  props<{ error: { status: number, message: string; }; }>()
+  props<{ error: NotesError; }>()
 );
 
 export const createSuccess = createAction(
@@ -29,7 +30,7 @@ export const createSuccess = createAction(
 
 export const createFailure = createAction(
   '[Notes/API] Create Failure',
-  props<{ error: string; }>()
+  props<{ error: NotesError; }>()
 );
 
 export const updateSuccess = createAction(
@@ -39,7 +40,7 @@ export const updateSuccess = createAction(
 
 export const updateFailure = createAction(
   '[Notes/API] Update Failure',
-  props<{ error: string; }>()
+  props<{ id: string; error: NotesError; }>()
 );
 
 export const destroySuccess = createAction(
@@ -49,5 +50,5 @@ export const destroySuccess = createAction(
 
 export const destroyFailure = createAction(
   '[Notes/API] Destroy Failure',
-  props<{ error: string; }>()
+  props<{ id: string; error: NotesError; }>()
 );

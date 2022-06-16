@@ -33,8 +33,32 @@ export const reducer = createReducer(
     ...state,
     current: note,
   })),
+  on(NotesActions.destroy, (state, { id }) => ({
+    ...state,
+    notes: state.notes?.map((note) => {
+      if (note.id === id) {
+        return ({
+          ...note,
+          isPending: true,
+        });
+      }
+      return note;
+    }) ?? null
+  })),
   on(NotesApiActions.destroySuccess, (state, { id }) => ({
     ...state,
     notes: state.notes?.filter((n) => n.id !== id) ?? null,
+  })),
+  on(NotesApiActions.destroyFailure, (state, { id }) => ({
+    ...state,
+    notes: state.notes?.map((note) => {
+      if (note.id === id) {
+        return ({
+          ...note,
+          isPending: false,
+        });
+      }
+      return note;
+    }) ?? null
   }))
 );

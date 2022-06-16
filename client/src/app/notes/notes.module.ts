@@ -10,12 +10,14 @@ import { NotesListComponent } from './components/notes-list/notes-list.component
 import { CreateNoteComponent } from './components/create-note/create-note.component';
 import { NotesEffects } from './effects/notes.effects';
 import { ShowNoteComponent } from './components/show-note/show-note.component';
+import { UpdateNoteComponent } from './components/update-note/update-note.component';
 
 @NgModule({
   declarations: [
     NotesListComponent,
     CreateNoteComponent,
     ShowNoteComponent,
+    UpdateNoteComponent,
   ],
   imports: [
     CommonModule,

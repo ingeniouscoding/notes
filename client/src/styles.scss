@@ -9,12 +9,16 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.auth {
+  padding: 1rem;
+}
+
 .auth-form {
-  margin: 1rem auto;
+  margin: 0 auto;
   padding: 1rem;
   min-width: 150px;
   max-width: 500px;
-  width: 100%;
+  box-sizing: border-box;
 
   background: #fff;
   border-radius: 4px;

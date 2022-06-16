@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { combineLatest, map, tap } from 'rxjs';
+import { combineLatest, map } from 'rxjs';
 
 import * as fromNotes from '@notes/notes/reducers';
 import { NotesActions } from '@notes/notes/actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notes-list',
@@ -19,7 +20,10 @@ export class NotesListComponent implements OnInit {
       map(([notes, page]) => ({ notes, page }))
     );
 
-  constructor(private store: Store) { }
+  constructor(
+    private store: Store,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.store.dispatch(NotesActions.getAll());
@@ -27,5 +31,9 @@ export class NotesListComponent implements OnInit {
 
   onDestroy(id: string) {
     this.store.dispatch(NotesActions.destroy({ id }));
+  }
+
+  onNavigate(id: string) {
+    this.router.navigate(['/notes', id, 'edit']);
   }
 }

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest, map } from 'rxjs';
 
@@ -21,10 +20,7 @@ export class UpdateNoteComponent {
       map(([note, page]) => ({ note, page }))
     );
 
-  constructor(
-    private store: Store,
-    private route: ActivatedRoute
-  ) { }
+  constructor(private store: Store) { }
 
   onSave(note: Note): void {
     this.store.dispatch(NotesActions.update({ note }));

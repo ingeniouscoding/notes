@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, concatMap, exhaustMap, map, mergeMap, of, switchMap } from "rxjs";
+import { catchError, concatMap, map, mergeMap, of, switchMap } from "rxjs";
 
 import { NotesActions, NotesApiActions } from "../actions";
 import { NotesService } from "../services/notes.service";

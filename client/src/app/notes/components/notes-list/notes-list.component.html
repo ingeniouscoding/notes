@@ -1,4 +1,3 @@
-<p>notes-list works!</p>
 <div *ngIf="vm$ | async as vm">
 
   <div *ngIf="vm.notes && vm.notes.length > 0 else noNotes">
@@ -7,7 +6,7 @@
         <a [routerLink]="['/notes', note.id]">{{ note.title }}</a>
       </h1>
       <div>
-        <button><a [routerLink]="['/notes', note.id, 'edit']">Edit</a></button>
+        <button (click)="onNavigate(note.id!)" [disabled]="note.isPending">Edit</button>
         <button (click)="onDestroy(note.id!)" [disabled]="note.isPending">X</button>
       </div>
     </div>
@@ -18,9 +17,9 @@
       <h2>Connection error</h2>
     </div>
 
-    <h2 *ngIf="!vm.page.error && !vm.page.pending">
+    <div *ngIf="!vm.page.error && !vm.page.pending">
       <h2>No notes</h2>
-    </h2>
+    </div>
   </ng-template>
 
   <div *ngIf="vm.page.pending">

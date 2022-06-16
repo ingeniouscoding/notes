@@ -1,8 +1,10 @@
-<form class="auth-form" [formGroup]="loginForm">
-  <app-auth-form-ui submitButton="Login"
-    [parentGroup]="loginForm"
-    [isPending]="(isPending$ | async) || false"
-    [errors]="(errors$ | async) ?? []"
-    (submit)="onLogin()">
-  </app-auth-form-ui>
-</form>
+<section class="auth">
+  <form class="auth-form" [formGroup]="loginForm">
+    <app-auth-form-ui submitButton="Login"
+      [parentGroup]="loginForm"
+      [isPending]="(isPending$ | async) || false"
+      [errors]="(errors$ | async) ?? []"
+      (submit)="onLogin()">
+    </app-auth-form-ui>
+  </form>
+</section>
